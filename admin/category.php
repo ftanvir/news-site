@@ -19,7 +19,11 @@
             <?php
                 include 'config.php';
 
-                $sql = "SELECT * FROM category";
+                $page_number = isset($_GET['page']) ? $_GET['page'] : 1;
+                $limit = 2;
+                $offset = ($page_number-1)*$limit;
+
+                $sql = "SELECT * FROM category LIMIT {$offset}, {$limit}";
                 $result = mysqli_query($conn, $sql);
                 if(mysqli_num_rows($result) > 0) {
             ?>
@@ -51,12 +55,35 @@
                 </table>
                 <?php
                 }
+
+                $sql1  = "SELECT * FROM category";
+                $result1 = mysqli_query($conn, $sql1);
+
+                if(mysqli_num_rows($result1)>0) {
+                    
+                    $total_records = mysqli_num_rows($result1);
+                    $limit = 2;
+                    $total_page = ceil($total_records/$limit);
+                    
+                    
+
+                    echo "<ul class='pagination admin-pagination'>";
+
+                    if($page_number > 1) echo '<li><a href="category.php?page='.($page_number -1).'">Prev</a></li>';
+
+                    for($i=1; $i<=$total_page; $i++) {
+                        echo "<li><a href = 'category.php?page=$i'>$i</a></li>";
+                    }
+
+                    if($page_number<$total_page) echo '<li><a href="category.php?page='.($page_number+1).' ">Next</a></li>';
+                    echo "</ul>";
+                }
                 ?>
-                <ul class='pagination admin-pagination'>
+                <!-- <ul class='pagination admin-pagination'>
                     <li class="active"><a>1</a></li>
                     <li><a>2</a></li>
                     <li><a>3</a></li>
-                </ul>
+                </ul> -->
             </div>
         </div>
     </div>
