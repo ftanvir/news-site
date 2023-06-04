@@ -35,7 +35,12 @@
                     <!-- /LOGO -->
                       <!-- LOGO-Out -->
                     <div class="col-md-offset-9  col-md-1">
-                        <a href="logout.php" class="admin-logout" >logout</a>
+                        <?php 
+                            if(isset($_SESSION['username'])) {
+                                $name = $_SESSION['username'];
+                            }
+                        ?>
+                        <a href="logout.php" class="admin-logout" ><?php echo $name?> logout</a>
                     </div>
                     <!-- /LOGO-Out -->
                 </div>
