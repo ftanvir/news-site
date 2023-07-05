@@ -1,11 +1,11 @@
 <?php
-    session_start();
+  include "config.php";
+  session_start();
 
-    if(!isset($_SESSION['username'])) {
-        header("Location: http://news-site.test/admin");
-    }
+  if(!isset($_SESSION["username"])){
+    header("Location: {$hostname}/admin/");
+  }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -34,13 +34,8 @@
                     </div>
                     <!-- /LOGO -->
                       <!-- LOGO-Out -->
-                    <div class="col-md-offset-9  col-md-1">
-                        <?php 
-                            if(isset($_SESSION['username'])) {
-                                $name = $_SESSION['username'];
-                            }
-                        ?>
-                        <a href="logout.php" class="admin-logout" ><?php echo $name?> logout</a>
+                    <div class="col-md-offset-6  col-md-4">
+                        <a href="logout.php" class="admin-logout">Hello <?php echo $_SESSION["username"]; ?>, logout</a>
                     </div>
                     <!-- /LOGO-Out -->
                 </div>
@@ -57,9 +52,7 @@
                                 <a href="post.php">Post</a>
                             </li>
                             <?php
-                                if($_SESSION['user_role']==1) {
-
-                                
+                              if($_SESSION["user_role"] == '1'){
                             ?>
                             <li>
                                 <a href="category.php">Category</a>
@@ -67,8 +60,11 @@
                             <li>
                                 <a href="users.php">Users</a>
                             </li>
+                            <li>
+                                <a href="settings.php">Settings</a>
+                            </li>
                             <?php
-                                }
+                              }
                             ?>
                         </ul>
                     </div>
